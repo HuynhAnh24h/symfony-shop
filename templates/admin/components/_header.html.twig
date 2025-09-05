@@ -1,1 +1,18 @@
- <div class="text-lg font-bold text-blue-600">Admin Dashboard</div>
+ <div class="container mx-8 flex justify-between items-center">
+    <a href="{{path('app_admin')}}" class="border border-2 bg-gray-800 text-white px-3 py-2 rounded-md
+        text-md font-bold
+    ">
+        Symfony Shop
+    </a>
+    <div class="flex items-center gap-3">
+        <button class="p-1 rounded-full border border-2 border-gray-800 text-gray-800
+            transition-all hover:bg-gray-800 hover:text-white
+        ">{{ ux_icon('material-symbols:search',{class:'h-5 w-5'}) }}</button>
+        <button class="p-1 rounded-full border border-2 border-gray-800 text-gray-800
+            transition-all hover:bg-gray-800 hover:text-white
+        ">{{ ux_icon('line-md:bell-filled',{class:'h-5 w-5'}) }}</button>
+        <button class="p-1 rounded-full border border-2 border-gray-800 text-gray-800
+            transition-all hover:bg-gray-800 hover:text-white
+        ">{{ ux_icon('mynaui:user-solid',{class:'h-5 w-5'}) }}</button>
+    </div>
+ </div>

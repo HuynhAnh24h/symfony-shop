@@ -1,16 +1,79 @@
 {% extends './admin/admin-layout.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}Admin Product{% endblock %}
 
 {% block body %}
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>E:/symfony 7/learning/shop-ease/src/Controller/ProductController.php</code></li>
-        <li>Your template at <code>E:/symfony 7/learning/shop-ease/templates/product/index.html.twig</code></li>
-    </ul>
+<div class="card rounded-sm shadow-sm p-5 flex flex-col gap-2">
+    <div class="flex justify-between items-center">
+        <div class="flex items-center gap-1">
+            {{ ux_icon('ic:baseline-list',{ class: 'w-6 h-6 inline-block text-gray-800', 'aria-hidden': true }) }}
+            <p class="text-lg font-bold text-gray-800">List Product</p>
+        </div>
+        <div class="flex items-center gap-5">
+            <button class="outline-none 
+            px-3 py-1 text-sm font-semibold border flex items-center gap-2
+            border-2 border-gray-800 rounded-sm hover:bg-gray-800 hover:text-white transition-all">
+                {{ ux_icon('tabler:filter',{class:'w-5 h-5'}) }}
+                Lọc
+            </button>
+            <a href="#" class="outline-none px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white 
+                hover:text-gray-800 hover:bg-white flex items-center gap-2
+            transition-all">{{ ux_icon('gg:add',{class:'w-5 h-5'}) }}Thêm sản phẩm</a>
+        </div>
+    </div>
+    <div class="overflow-x-auto mt-3">
+        <table class="w-full text-sm text-left">
+            <thead class="bg-gray-800 text-md font-semibold text-white tracking-wide">
+                <tr>
+                    <th class="py-4 px-6">ID</th>
+                    <th class="py-4 px-6">Image</th>
+                    <th class="py-4 px-6">Name</th>
+                    <th class="py-4 px-6">Category</th>
+                    <th class="py-4 px-6">Price</th>
+                    <th class="py-4 px-6">Actions</th>
+                </tr>
+            </thead>
+           <tbody class="divide-y divide-white-100 text-gray-800">
+            {% for product in products %}
+                <tr class="hover:bg-gray-50 trasnsition duration-150">
+                    <td class="py-4 px-6 font-semibold text-gray-500">{{ product.id }}</td>
+                    <td class="py-4 px-6">
+                        {% if product.image %}
+                        <img src="{{product.image}}" class="h12 w-12 object-cover rounded-md border border-gray-300 shadow-sm"
+                         width="75"
+                         height="75"
+                        >
+                        {% else %}
+                            <span class="rounded-sm bg-red-600 text-white">Không có hình ảnh</span>
+                        {% endif %}
+                    </td>
+                    <td class="py-4 px-6 font-semibold text-gray-500">{{ product.name }}</td>
+                    <td class="py-4 px-6 font-semibold text-gray-500">{{ product.category.name }}</td>
+                    <td class="py-4 px-6 font-semibold text-gray-500">{{product.price|number_format(2, 'decimal_point', 'thousands_separator') }} VNĐ</td>
+                    <td class="py-4 px-6">
+                        <a href="#" class="text-white bg-green-700 px-3 px-1">
+                            {{ ux_icon('hugeicons:view') }}
+                        </a>
+                        {# <a href="#" class="text-white bg-yellow-700 px-3 px-1">
+                            {{ ux_icon('mingcute:edit-line') }}
+                        </a>
+                        <a href="#" class="text-white bg-red-700 px-3 px-1">
+                            {{ ux_icon('ic:outline-delete') }}
+                        </a> #}
+                    </td>    
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="100% text-center">
+                        {{ include('partial/_notifications.html.twig', {
+                            message: 'Không thể tải danh sách',
+                            type: 'error'
+                        }) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
