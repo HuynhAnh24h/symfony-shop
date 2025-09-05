@@ -11,7 +11,7 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body class="bg-gray-100 text-gray-900">
+    <body class="bg-gray-200 text-gray-900">
         <div class="min-h-screen flex flex-col">
             <!-- Header -->
             <header class="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 h-16">
@@ -26,7 +26,7 @@
                 </aside>
 
                 <!-- Main content -->
-                <main class="flex-1 p-6 md:ml-64 mt-16 h-[1000px]">
+                <main class="flex-1 p-6 md:ml-64 mt-16">
                     {% block body %}{% endblock %}
                 </main>
             </div>

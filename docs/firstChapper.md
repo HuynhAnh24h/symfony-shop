@@ -16,3 +16,5 @@
 - Tạo mối quan hệ các bảng: relation ( ManyToOne, OneToMany, OneToOne, ManyToMany) 
 
 - Tạo controller: php bin/console make:controller _your_controller
+
+- Chạy project code: symfony server:start and run watch tailwind css

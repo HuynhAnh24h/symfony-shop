@@ -3,7 +3,7 @@
 {% block title %}Admin Product{% endblock %}
 
 {% block body %}
-<div class="card rounded-sm shadow-sm p-5 flex flex-col gap-2">
+<div class="card rounded-sm shadow-sm p-5 flex flex-col gap-2 bg-white">
     <div class="flex justify-between items-center">
         <div class="flex items-center gap-1">
             {{ ux_icon('ic:baseline-list',{ class: 'w-6 h-6 inline-block text-gray-800', 'aria-hidden': true }) }}
@@ -16,7 +16,7 @@
                 {{ ux_icon('tabler:filter',{class:'w-5 h-5'}) }}
                 Lọc
             </button>
-            <a href="#" class="outline-none px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white 
+            <a href="{{path('app_product_add')}}" class="outline-none px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white 
                 hover:text-gray-800 hover:bg-white flex items-center gap-2
             transition-all">{{ ux_icon('gg:add',{class:'w-5 h-5'}) }}Thêm sản phẩm</a>
         </div>
