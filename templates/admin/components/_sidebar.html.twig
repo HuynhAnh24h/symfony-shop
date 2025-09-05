@@ -1,0 +1,27 @@
+<aside class="w-64 bg-gray-800 text-white shadow-md h-screen fixed top-16 left-0 z-40">
+    <nav class="mt-5 space-y-1">
+        {% set currentRoute = app.request.attributes.get('_route') %}
+        {% set menu = [
+            {'route': 'app_admin', 'label': 'Dashboard', 'icon': 'bi:speedometer2'},
+            {'route': 'app_product', 'label': 'Products', 'icon': 'bi:box-seam'},
+            {'route': 'app_category', 'label': 'Categories', 'icon': 'bi:tags'},
+            {'route': 'app_order', 'label': 'Orders', 'icon': 'bi:cart-check'},
+            {'route': 'app_user', 'label': 'Users', 'icon': 'bi:people'},
+            {'route': 'app_blog', 'label': 'Blog', 'icon': 'bi:journal-text'},
+            {'route': 'app_brand', 'label': 'Brands', 'icon': 'bi:award'}
+        ] %}
+
+        {% for item in menu %}
+            {# Hàm có sẵn currentRoute để lấy route hiện tại của project #}
+            {% set isActive = item.route == currentRoute %}
+            <a href="{{ path(item.route) }}"
+               class="flex items-center gap-3 py-3 px-5 text-md font-semibold transition
+                      {{ isActive ? 'bg-white text-gray-900 rounded-tl-2xl rounded-bl-2xl' : 'hover:bg-white hover:text-gray-900 hover:rounded-md' }}">
+                {{ ux_icon(item.icon, {
+                    class: 'w-5 h-5 ' ~ (isActive ? 'text-gray-900' : '')
+                }) }}
+                <span>{{ item.label }}</span>
+            </a>
+        {% endfor %}
+    </nav>
+</aside>
