@@ -1,0 +1,20 @@
+<div class="rounded-sm shadow-sm p-5 flex flex-col gap-2 bg-white max-w-md">
+    <h1 class="text-xl font-bold text-gray-800 flex items-center gap-1">
+        {{ ux_icon(title_icon,{class:'w-5 h-5'}) }}
+        {{title}}
+    </h1>
+    {# Gọi Form từ controller và truyền biến #}
+    {% block form %}
+    {% endblock %}
+</div>
+{#
+- Cách override block actions để thêm nhiều nút
+{% embed ''partial/components/_addNewComponent.html.twig' with {
+    title: 'Quản lý sản phẩm',
+    title_icon: 'mdi:package-variant'
+} %}
+    {% block form %}
+        Your Form Action
+    {% endblock %}
+{% endembed %}
+#}

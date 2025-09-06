@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Helpers\UploadHelper;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,7 @@ final class ProductController extends AbstractController
 
     // Add New Product
     #[Route('/admin/product/add', name:'app_product_add')]
-    public function addProduct(Request $request, EntityManagerInterface $entityManager)
+    public function addProduct(Request $request, EntityManagerInterface $entityManager, UploadHelper $uploadHelper)
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -34,6 +35,17 @@ final class ProductController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $product->setCreatedAt(new \DateTimeImmutable());
+
+            $uploadedFile = $form['image'] ->getData();
+            if($uploadedFile){
+                $newFilename = $uploadHelper->uploadProductImage($uploadedFile);
+                $product -> setImage($newFilename);
+            }
+
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_product');
         }
 
         return $this->render('admin/product/address/_newProduct.html.twig', [

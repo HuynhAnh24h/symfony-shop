@@ -1,15 +1,62 @@
 {% extends 'admin/admin-layout.html.twig' %}
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Danh mục sản phẩm{% endblock %}
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>E:/symfony 7/learning/shop-ease/src/Controller/CategoryController.php</code></li>
-        <li>Your template at <code>E:/symfony 7/learning/shop-ease/templates/category/index.html.twig</code></li>
-    </ul>
+<div class="card rounded-sm shadow-sm p-5 flex flex-col gap-2 bg-white">
+     {% embed 'partial/components/_headingListComponent.html.twig' with {
+        title: 'Quản lý danh mục',
+        title_icon: 'ic:outline-category'
+    } %}
+        {% block actions %}
+            <a href="{{ path('app_category_add') }}" class="flex items-center gap-2 px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white hover:text-gray-800 hover:bg-white transition-all">
+                {{ ux_icon('gg:add', { class: 'w-5 h-5' }) }} Thêm danh mục
+            </a>
+        {% endblock %}
+    {% endembed %}
+    <div class="overflow-x-auto mt-6">
+        <table class="w-full text-sm text-left border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+            <thead class="bg-gray-800 text-white text-md font-semibold tracking-wide">
+                <tr>
+                    <th class="py-3 px-6">ID</th>
+                    <th class="py-3 px-6">Tên danh mục</th>
+                    <th class="py-3 px-6">Mô tả danh mục</th>
+                    <th class="py-3 px-6">Hành động</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+                {% for category in categories %}
+                    <tr class="hover:bg-gray-50 transition duration-150">
+                        <td class="py-3 px-6 text-gray-700 font-medium">{{ category.id }}</td>
+                        <td class="py-3 px-6 text-gray-700">{{ category.name }}</td>
+                        <td class="py-3 px-6 text-gray-700">{{ category.description }}</td>
+                        <td class="py-3 px-6 flex gap-2">
+                            <a href="{{ path('app_category_view', { id: category.id }) }}"
+                            class="inline-flex items-center gap-1 text-white bg-blue-600 hover:bg-blue-700 transition px-3 py-1 rounded-md text-sm font-medium shadow-sm">
+                                {{ ux_icon('hugeicons:view', { class: 'h-5 w-5' }) }}
+                            </a>
+                            <a href="#"
+                            class="inline-flex items-center gap-1 text-white bg-yellow-500 hover:bg-yellow-600 transition px-3 py-1 rounded-md text-sm font-medium shadow-sm">
+                                {{ ux_icon('iconamoon:edit-fill', { class: 'h-5 w-5' }) }}
+                            </a>
+                            <a href="#"
+                            class="inline-flex items-center gap-1 text-white bg-red-600 hover:bg-red-700 transition px-3 py-1 rounded-md text-sm font-medium shadow-sm">
+                                {{ ux_icon('material-symbols:delete', { class: 'h-5 w-5' }) }}
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="py-6 px-6 text-center text-red-500 font-semibold">
+                            {{ include('partial/_notifications.html.twig', {
+                                message: 'Không thể tải danh sách',
+                                type: 'error'
+                            }) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

@@ -17,4 +17,4 @@
 
 - Tạo controller: php bin/console make:controller _your_controller
 
-- Chạy project code: symfony server:start and run watch tailwind css
+- Chạy project code: (symfony server:start) and run watch tailwind css (php bin/console tailwind:build --watch)

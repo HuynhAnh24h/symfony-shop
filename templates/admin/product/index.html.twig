@@ -4,23 +4,16 @@
 
 {% block body %}
 <div class="card rounded-sm shadow-sm p-5 flex flex-col gap-2 bg-white">
-    <div class="flex justify-between items-center">
-        <div class="flex items-center gap-1">
-            {{ ux_icon('ic:baseline-list',{ class: 'w-6 h-6 inline-block text-gray-800', 'aria-hidden': true }) }}
-            <p class="text-lg font-bold text-gray-800">List Product</p>
-        </div>
-        <div class="flex items-center gap-5">
-            <button class="outline-none 
-            px-3 py-1 text-sm font-semibold border flex items-center gap-2
-            border-2 border-gray-800 rounded-sm hover:bg-gray-800 hover:text-white transition-all">
-                {{ ux_icon('tabler:filter',{class:'w-5 h-5'}) }}
-                Lọc
-            </button>
-            <a href="{{path('app_product_add')}}" class="outline-none px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white 
-                hover:text-gray-800 hover:bg-white flex items-center gap-2
-            transition-all">{{ ux_icon('gg:add',{class:'w-5 h-5'}) }}Thêm sản phẩm</a>
-        </div>
-    </div>
+    {% embed 'partial/components/_headingListComponent.html.twig' with {
+        title: 'Quản lý sản phẩm',
+        title_icon: 'mdi:package-variant'
+    } %}
+        {% block actions %}
+            <a href="{{ path('app_product_add') }}" class="flex items-center gap-2 px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white hover:text-gray-800 hover:bg-white transition-all">
+                {{ ux_icon('gg:add', { class: 'w-5 h-5' }) }} Thêm sản phẩm
+            </a>
+        {% endblock %}
+    {% endembed %}
     <div class="overflow-x-auto mt-3">
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-800 text-md font-semibold text-white tracking-wide">
@@ -39,10 +32,10 @@
                     <td class="py-4 px-6 font-semibold text-gray-500">{{ product.id }}</td>
                     <td class="py-4 px-6">
                         {% if product.image %}
-                        <img src="{{product.image}}" class="h12 w-12 object-cover rounded-md border border-gray-300 shadow-sm"
-                         width="75"
-                         height="75"
-                        >
+                            <img src="{{product.image}}" class="h12 w-12 object-cover rounded-md border border-gray-300 shadow-sm"
+                            width="75"
+                            height="75"
+                            >
                         {% else %}
                             <span class="rounded-sm bg-red-600 text-white">Không có hình ảnh</span>
                         {% endif %}
@@ -54,12 +47,6 @@
                         <a href="#" class="text-white bg-green-700 px-3 px-1">
                             {{ ux_icon('hugeicons:view') }}
                         </a>
-                        {# <a href="#" class="text-white bg-yellow-700 px-3 px-1">
-                            {{ ux_icon('mingcute:edit-line') }}
-                        </a>
-                        <a href="#" class="text-white bg-red-700 px-3 px-1">
-                            {{ ux_icon('ic:outline-delete') }}
-                        </a> #}
                     </td>    
                 </tr>
             {% else %}

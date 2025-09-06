@@ -1,0 +1,50 @@
+{# templates/components/product_header.html.twig #}
+<div class="flex justify-between items-center">
+    {# Left: Icon + Title #}
+    <div class="flex items-center gap-1">
+        {{ ux_icon(title_icon|default('ic:baseline-list'), { class: 'w-6 h-6 inline-block text-gray-800', 'aria-hidden': true }) }}
+        <p class="text-lg font-bold text-gray-800">{{ title|default('Tiêu đề') }}</p>
+    </div>
+
+    {# Right: Action buttons (can be overridden) #}
+    <div class="flex items-center gap-5">
+        {% block actions %}
+            <a href="{{ add_url|default(path('app_product_add')) }}" class="outline-none px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white 
+                hover:text-gray-800 hover:bg-white flex items-center gap-2 transition-all">
+                {{ ux_icon(add_icon|default('gg:add'), { class: 'w-5 h-5' }) }}
+                {{ add_label|default('Thêm sản phẩm') }}
+            </a>
+        {% endblock %}
+    </div>
+</div>
+
+
+{#
+- Cách sử dụng component mặc định
+{% include 'components/control_header.html.twig' with {
+    title: 'Danh sách sản phẩm',
+    title_icon: 'mdi:package-variant',
+    add_label: 'Thêm sản phẩm',
+    add_icon: 'gg:add',
+    add_url: path('app_product_add')
+} %}
+
+- Cách override block actions để thêm nhiều nút
+{% embed 'components/control_header.html.twig' with {
+    title: 'Quản lý sản phẩm',
+    title_icon: 'mdi:package-variant'
+} %}
+    {% block actions %}
+        <a href="{{ path('app_product_add') }}" class="flex items-center gap-2 px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white hover:text-gray-800 hover:bg-white transition-all">
+            {{ ux_icon('gg:add', { class: 'w-5 h-5' }) }} Thêm sản phẩm
+        </a>
+        <a href="{{ path('app_product_export') }}" class="flex items-center gap-2 px-3 py-1 text-sm font-semibold border border-2 border-green-700 rounded-sm bg-green-700 text-white hover:text-green-700 hover:bg-white transition-all">
+            {{ ux_icon('mdi:file-export', { class: 'w-5 h-5' }) }} Xuất Excel
+        </a>
+        <a href="{{ path('app_product_import') }}" class="flex items-center gap-2 px-3 py-1 text-sm font-semibold border border-2 border-blue-700 rounded-sm bg-blue-700 text-white hover:text-blue-700 hover:bg-white transition-all">
+            {{ ux_icon('mdi:file-import', { class: 'w-5 h-5' }) }} Nhập dữ liệu
+        </a>
+    {% endblock %}
+{% endembed %}
+
+#}

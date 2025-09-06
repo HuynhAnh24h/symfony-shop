@@ -21,7 +21,7 @@ class ProductType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Name'])
             ->add('description', TextareaType::class, ['label' => 'Description'])
-            ->add('price', MoneyType::class, ['label' => 'Price'])
+            ->add('price', MoneyType::class, ['label' => 'Price (VNĐ)', 'currency'=>false])
             ->add('image', FileType::class, [
                 'mapped' => false,
                 'required' => false,

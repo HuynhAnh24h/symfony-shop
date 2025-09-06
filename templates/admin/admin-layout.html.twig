@@ -14,7 +14,7 @@
     <body class="bg-gray-200 text-gray-900">
         <div class="min-h-screen flex flex-col">
             <!-- Header -->
-            <header class="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 h-16">
+            <header class="bg-white shadow-md p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-50 h-16 w-screen">
                 {{ include("admin/components/_header.html.twig") }}
             </header>
 
@@ -31,6 +31,7 @@
                 </main>
             </div>
         </div>
+        <script src="{{ asset('js/product.js') }}"></script>
     </body>
 
 </html>
