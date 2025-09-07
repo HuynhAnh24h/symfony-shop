@@ -1,6 +1,6 @@
 <?php
 
- namespace App\Helpers;
+namespace App\Helpers;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  {
     private $uploadsPath;
     private $slugger;
-    public function ___construct(string $uploadPath, SluggerInterface $slugger)
+    public function __construct(string $uploadPath, SluggerInterface $slugger)
     {
         $this->uploadsPath = $uploadPath;
         $this->slugger = $slugger;
@@ -20,15 +20,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
         $destination = $this->uploadsPath.'/product_images';
 
         $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $safeFilename = $this -> slugger -> slug($originalFilename);
+        $safeFilename = $this->slugger->slug($originalFilename)->toString();
 
         $newFilename = $safeFilename.'-'.uniqid().'.'.$uploadedFile -> guessExtension();
 
-        $uploadedFile->move(
-            $destination,
-            $newFilename
-        );
-
+        try {
+            $uploadedFile->move($destination, $newFilename);
+        } catch (\Exception $e) {
+            throw new \RuntimeException('Không thể upload ảnh: '.$e->getMessage());
+        }
         return $newFilename;
     }
 

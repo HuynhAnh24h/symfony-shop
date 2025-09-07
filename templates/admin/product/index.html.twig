@@ -14,51 +14,63 @@
             </a>
         {% endblock %}
     {% endembed %}
-    <div class="overflow-x-auto mt-3">
-        <table class="w-full text-sm text-left">
-            <thead class="bg-gray-800 text-md font-semibold text-white tracking-wide">
+    <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
+        <table class="min-w-full text-sm text-left bg-white">
+            <thead class="bg-gradient-to-r from-gray-700 to-gray-900 text-white text-sm uppercase tracking-wider">
                 <tr>
                     <th class="py-4 px-6">ID</th>
-                    <th class="py-4 px-6">Image</th>
-                    <th class="py-4 px-6">Name</th>
-                    <th class="py-4 px-6">Category</th>
-                    <th class="py-4 px-6">Price</th>
-                    <th class="py-4 px-6">Actions</th>
+                    <th class="py-4 px-6">Ảnh</th>
+                    <th class="py-4 px-6">Tên sản phẩm</th>
+                    <th class="py-4 px-6">Danh mục</th>
+                    <th class="py-4 px-6">Giá</th>
+                    <th class="py-4 px-6 text-center">Thao tác</th>
                 </tr>
             </thead>
-           <tbody class="divide-y divide-white-100 text-gray-800">
-            {% for product in products %}
-                <tr class="hover:bg-gray-50 trasnsition duration-150">
-                    <td class="py-4 px-6 font-semibold text-gray-500">{{ product.id }}</td>
-                    <td class="py-4 px-6">
-                        {% if product.image %}
-                            <img src="{{product.image}}" class="h12 w-12 object-cover rounded-md border border-gray-300 shadow-sm"
-                            width="75"
-                            height="75"
-                            >
-                        {% else %}
-                            <span class="rounded-sm bg-red-600 text-white">Không có hình ảnh</span>
-                        {% endif %}
-                    </td>
-                    <td class="py-4 px-6 font-semibold text-gray-500">{{ product.name }}</td>
-                    <td class="py-4 px-6 font-semibold text-gray-500">{{ product.category.name }}</td>
-                    <td class="py-4 px-6 font-semibold text-gray-500">{{product.price|number_format(2, 'decimal_point', 'thousands_separator') }} VNĐ</td>
-                    <td class="py-4 px-6">
-                        <a href="#" class="text-white bg-green-700 px-3 px-1">
-                            {{ ux_icon('hugeicons:view') }}
-                        </a>
-                    </td>    
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="100% text-center">
-                        {{ include('partial/_notifications.html.twig', {
-                            message: 'Không thể tải danh sách',
-                            type: 'error'
-                        }) }}
-                    </td>
-                </tr>
-            {% endfor %}
+            <tbody class="divide-y divide-gray-200 text-gray-700">
+                {% for product in products %}
+                    <tr class="hover:bg-gray-100 transition duration-200 ease-in-out">
+                        <td class="py-4 px-6 font-medium text-gray-500">{{ product.id }}</td>
+                        <td class="py-4 px-6">
+                            {% if product.image %}
+                                <img src="{{ asset('uploads/product_images/' ~ product.image) }}"
+                                    alt="Ảnh sản phẩm"
+                                    class="h-16 w-16 object-cover rounded-md border border-gray-300 shadow-sm">
+                            {% else %}
+                                <span class="inline-block px-2 py-1 text-xs font-semibold bg-red-100 text-red-600 rounded">Không có ảnh</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-4 px-6 font-semibold">{{ product.name }}</td>
+                        <td class="py-4 px-6">{{ product.category.name }}</td>
+                        <td class="py-4 px-6 font-semibold text-green-600">
+                            {{ product.price|number_format(0, '.', ',') }} VNĐ
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <div class="flex justify-center gap-2">
+                                <a href="#"
+                                class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md text-sm font-medium shadow">
+                                    {{ ux_icon('hugeicons:view', { class: 'h-5 w-5' }) }}
+                                </a>
+                                <a href="#"
+                                class="inline-flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-md text-sm font-medium shadow">
+                                    {{ ux_icon('iconamoon:edit-fill', { class: 'h-5 w-5' }) }}
+                                </a>
+                                <a href="#"
+                                class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm font-medium shadow">
+                                    {{ ux_icon('material-symbols:delete', { class: 'h-5 w-5' }) }}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="py-6 px-6 text-center text-red-600 font-semibold">
+                            {{ include('partial/_notifications.html.twig', {
+                                message: 'Không thể tải danh sách sản phẩm',
+                                type: 'error'
+                            }) }}
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
