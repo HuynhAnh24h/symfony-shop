@@ -1,0 +1,17 @@
+<div id="toast-container" class="fixed top-5 right-5 z-50 space-y-4">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="toast px-4 py-3 rounded shadow text-white transition-opacity duration-500
+                {% if label == 'success' %}
+                    bg-green-500
+                {% elseif label == 'error' %}
+                    bg-red-500
+                {% else %}
+                    bg-blue-800
+                {% endif %}
+            ">
+                <p class="font-semibold">{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

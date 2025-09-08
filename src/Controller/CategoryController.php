@@ -35,6 +35,8 @@ final class CategoryController extends AbstractController
             $entityManagerInterface -> persist($category);
             $entityManagerInterface ->flush();
 
+            $this->addFlash('success','Tạo danh mục thành công');
+
             return $this->redirectToRoute('app_category');
         }
 
@@ -44,18 +46,33 @@ final class CategoryController extends AbstractController
     }
 
     // View Detail Category
-    #[Route('/admin/category/view', name: 'app_category_view')]
-    public function viewCategory(CategoryRepository $categoryRepository): Response
+    #[Route('/admin/category/view/{id}', name: 'app_category_view')]
+    public function viewCategory(EntityManagerInterface $entityManagerInterface, Request $request,Category $category): Response
     {
-        $category = $categoryRepository->findAll();
-        return $this->render('admin/category/address/_view.html.twig', [
-            'categories' => $category,
+        $form = $this -> createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManagerInterface->flush();
+            $this->addFlash('success',"Danh mục đã được cập nhật");
+
+            return $this -> redirectToRoute('app_category');
+        }
+        return $this->render('admin/category/address/_view.html.twig',[
+            'form' =>$form->createView(),
+            'category' => $category,
         ]);
     }
 
-    // Edit Category
-
     // Delete Category
+     #[Route('/admin/category/delete/{id}', name: 'app_category_delete', methods:['POST'])]
+     public function deleteCategory(EntityManagerInterface $entityManagerInterface, Category $category): Response
+     {
+            $entityManagerInterface -> remove($category);
+            $entityManagerInterface->flush();
 
-    // Delete Select Category
+            $this->addFlash("success","Xoá danh mục thành công");
+            return $this -> redirectToRoute("app_category");
+     }
 }

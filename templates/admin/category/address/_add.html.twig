@@ -2,12 +2,13 @@
 {% block title %} Thêm danh mục {% endblock %}
 
 {% block body %}
-
+    
     {% embed 'partial/components/_addNewComponent.html.twig' with {
         title: 'Thêm danh mục',
         title_icon: 'ic:outline-category'
     } %}
         {% block form %}
+        {% import 'partial/components/_buttonComponent.html.twig' as ui %}
             {{form_start(form,{'attr':{'class':'space-y-2'}})}}
                 <div>
                     {{form_label(form.name,null,{'label_attr':{'class':'block text-gray-700 font-medium mb-1'}})}}
@@ -20,12 +21,7 @@
                     {{ form_errors(form.description) }}
                 </div>
                 <div class="flex justify-center items-center">
-                    <button type="submit" class="outline-none px-3 py-1 text-sm font-semibold border border-2 border-gray-800 rounded-sm bg-gray-800 text-white 
-                    hover:opacity-[0.9] flex items-center gap-2
-                transition-all">
-                    Tạo danh mục
-                    {{ ux_icon('formkit:submit',{class:'w-5 h-5'}) }}
-                    </button>
+                    {{ ui.button('Tạo danh mục', 'submit', null, 'mingcute:check-fill', 'default') }}
                 </div>
             {{form_end(form)}}
         {% endblock %}

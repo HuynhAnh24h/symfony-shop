@@ -1,0 +1,44 @@
+{% macro button(name, type, pathName, icon, variant, params, extraClass) %}
+    {% set baseClass = 'outline-none px-3 py-1 text-sm font-semibold border-2 rounded-sm flex items-center gap-2 transition-all' %}
+    {% set variantClass = {
+        'default': 'border-gray-800 bg-gray-800 text-white hover:opacity-90',
+        'danger': 'border-red-600 bg-red-600 text-white hover:bg-red-700',
+        'ghost': 'border-transparent bg-transparent text-gray-800 hover:bg-gray-100'
+    }[variant|default('default')] %}
+    {% set fullClass = baseClass ~ ' ' ~ variantClass ~ ' ' ~ (extraClass|default('')) %}
+
+    {% if type == 'submit' %}
+        <button type="submit" class="{{ fullClass|trim }}">
+            {{ name }}
+            {% if icon is defined %}
+                {{ ux_icon(icon, { class: 'w-5 h-5' }) }}
+            {% endif %}
+        </button>
+    {% else %}
+        <a href="{{ path(pathName, params|default({})) }}" class="{{ fullClass|trim }}">
+            {{ name }}
+            {% if icon is defined %}
+                {{ ux_icon(icon, { class: 'w-5 h-5' }) }}
+            {% endif %}
+        </a>
+    {% endif %}
+{% endmacro %}
+
+
+{#
+- Lưu ý import component này trong cùng 1 bock nhé 
+{% import 'partial/components/_buttonComponent.html.twig' as ui %}
+
+Nút submit đơn giản
+{{ ui.button('Xác nhận', 'submit', null, 'check', 'default') }}
+
+Nút link có path đơn giản 
+{{ ui.button('Quay lại', 'link', 'homepage', null, 'ghost') }}
+
+Nút link có route cần tham số 
+{{ ui.button('Xem chi tiết', 'link', 'app_category_view', 'visibility', 'default', { id: category.id }) }}
+
+Nút xoá có thêm class tuỳ chỉnh 
+{{ ui.button('Xóa', 'link', 'post_delete', 'trash', 'danger', { id: post.id }, 'text-xs') }}
+
+#}
