@@ -21,27 +21,29 @@
              {{form_start(form,{'attr':{'class':'space-y-2'}})}}
                     <div>
                         {{form_label(form.name,null,{'label_attr':{'class':'block text-gray-700 font-medium mb-1'}})}}
-                        {{form_widget(form.name, {'attr':
-                            {
-                                'class':'w-full px-2 py-1 border rounded-lg shadow-sm focus:ring-gray-800',
-                                'placeholder': category.name
-                            }
-                        })}}
+                            {{form_widget(form.name, {'attr':
+                                {
+                                    'class':'w-full px-2 py-1 border rounded-lg shadow-sm focus:ring-gray-800',
+                                    'placeholder': category.name
+                                }
+                            })
+                        }}
                         {{ form_errors(form.name) }}
                     </div>
                     <div>
-                    {{form_label(form.description,null,{'label_attr':{'class':'block text-gray-700 font-medium mb-1'}})}}
-                        {{form_widget(form.description, {'attr':
-                        {
-                            'class':'w-full px-2 py-1 border rounded-lg shadow-sm focus:ring-gray-800',
-                            'placeholder': category.description
-                        }
-                        })}}
+                        {{form_label(form.description,null,{'label_attr':{'class':'block text-gray-700 font-medium mb-1'}})}}
+                            {{form_widget(form.description, {'attr':
+                                {
+                                    'class':'w-full px-2 py-1 border rounded-lg shadow-sm focus:ring-gray-800',
+                                    'placeholder': category.description
+                                }
+                            })
+                        }}
                         {{ form_errors(form.description) }}
                     </div>
                     <div class="flex justify-between items-center mt-5">
                         {{ ui.button('Cập nhật danh mục', 'submit', null, 'mingcute:edit-line', 'default', { id: category.id }) }}
-                    {{form_end(form)}}
+            {{form_end(form)}}
                     <form action="{{path('app_category_delete',{'id': category.id})}}" method="POST">
                                 {{ ui.button('Xoá danh mục', 'submit', null, 'mingcute:delete-line', 'danger', { id: category.id }) }}
                     </form>

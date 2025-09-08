@@ -22,7 +22,7 @@
                     <th class="py-3 px-6">ID</th>
                     <th class="py-3 px-6">Tên danh mục</th>
                     <th class="py-3 px-6">Mô tả danh mục</th>
-                    <th class="py-3 px-6"></th>
+                    <th class="py-3 px-6">Hành động</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
@@ -33,6 +33,9 @@
                         <td class="py-3 px-6 text-gray-700">{{ category.description }}</td>
                         <td class="py-3 px-6 flex gap-2">
                             {{ ui.button(null, 'link', 'app_category_view', 'lets-icons:view-fill', 'default', { id: category.id } ) }}
+                             <form action="{{path('app_category_delete',{'id': category.id})}}" method="POST">
+                                {{ ui.button(null, 'submit', null, 'mingcute:delete-line', 'danger', { id: category.id }) }}
+                            </form>
                         </td>
                     </tr>
                 {% else %}
